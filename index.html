@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fathima Shamsuddin — Cognitive Neuropsychology & HCI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --ink: #1A1916;
+    --mid: #7A7568;
+    --accent: #C4733A;
+    --rule: #D9D4C7;
+    --card: #EFECE5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* SECTIONS */
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+    max-width: 860px;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-tagline {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--mid);
+    max-width: 520px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .hero-tagline strong {
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .hero-meta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .hero-meta a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .hero-meta a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 60px;
+  }
+
+  /* WHAT I DO */
+  .what-i-do-text {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.55;
+    max-width: 680px;
+  }
+
+  .what-i-do-text em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* EXPERTISE */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 1rem;
+  }
+
+  .expertise-item {
+    background: var(--bg);
+    padding: 2rem 1.8rem;
+    transition: background 0.2s;
+  }
+
+  .expertise-item:hover { background: var(--card); }
+
+  .expertise-item h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .expertise-item p {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* GOOD AT */
+  .good-at-text {
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--mid);
+    border-left: 2px solid var(--accent);
+    padding-left: 2rem;
+    max-width: 600px;
+  }
+
+  .good-at-text strong { color: var(--ink); font-style: normal; font-weight: 400; }
+
+  /* RESEARCH */
+  .research-list { display: flex; flex-direction: column; gap: 0; }
+
+  .research-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s;
+  }
+
+  .research-item:first-child { border-top: 1px solid var(--rule); }
+
+  .research-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .research-item h3 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .research-item p {
+    font-size: 0.92rem;
+    color: var(--mid);
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.65;
+  }
+
+  .research-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    white-space: nowrap;
+    padding-top: 0.2rem;
+  }
+
+  /* SKILLS */
+  .skills-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 580px) { .skills-block { grid-template-columns: 1fr; } }
+
+  .skills-block h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    margin: 0.25rem 0.2rem 0.25rem 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .skill-tag:hover { background: var(--card); border-color: var(--accent); }
+
+  /* EDUCATION */
+  .edu-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .edu-item:first-child { border-top: 1px solid var(--rule); }
+
+  .edu-degree {
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-school {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .edu-detail {
+    font-size: 0.9rem;
+    color: var(--mid);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ADVOCACY */
+  .advocacy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  @media (max-width: 580px) { .advocacy-grid { grid-template-columns: 1fr; } }
+
+  .advocacy-card {
+    background: var(--bg);
+    padding: 2.2rem 2rem;
+  }
+
+  .advocacy-card:hover { background: var(--card); }
+
+  .advocacy-card .date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .advocacy-card h3 { font-size: 1.05rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .advocacy-card p { font-size: 0.9rem; color: var(--mid); font-weight: 300; line-height: 1.65; }
+
+  /* ACHIEVEMENTS */
+  .achievement-list { list-style: none; }
+
+  .achievement-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1rem;
+    font-weight: 300;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .achievement-list li::before {
+    content: '—';
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  #contact {
+    text-align: center;
+    padding: 6rem 2rem 8rem;
+  }
+
+  #contact h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  #contact h2 em { font-style: italic; color: var(--accent); }
+
+  #contact p {
+    font-size: 1.05rem;
+    color: var(--mid);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    padding: 0.85rem 1.8rem;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  .contact-link:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .contact-link.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .contact-link.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    text-transform: uppercase;
+  }
+
+  /* PHOTO PLACEHOLDER */
+  .photo-placeholder {
+    width: 160px;
+    height: 200px;
+    border: 1px dashed var(--rule);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--mid);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .photo-placeholder span { font-size: 1.5rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    .research-item { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Fathima Shamsuddin</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#advocacy">Advocacy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="margin:0 auto; padding-left:2rem; padding-right:2rem;">
+  <p class="hero-label">Cognitive Neuropsychology · HCI · Assistive Technology</p>
+  <h1 class="hero-name">Fathima<br><em>Shamsuddin</em></h1>
+  <p class="hero-tagline">
+    I study how the brain pays attention — using <strong>eye-tracking, EEG, and neuroimaging</strong> to understand how people perceive and interact with the world, and applying those insights toward <strong>accessible, community-centred design.</strong>
+  </p>
+  <div class="hero-meta">
+    <a href="mailto:fathimashams02@gmail.com">fathimashams02@gmail.com</a>
+    <a href="https://github.com/fathima190" target="_blank">github.com/fathima190</a>
+    <a href="tel:+919747552544">+91 97475 52544</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT I DO -->
+<section id="about">
+  <p class="section-label">What I Do</p>
+
+  <!-- Optional photo slot — remove this block if you prefer no photo -->
+  <div class="photo-placeholder">
+    <span>☺</span>
+    Add your<br>headshot here
+  </div>
+
+  <p class="what-i-do-text reveal">
+    I study how the brain pays attention — using <em>eye-tracking, EEG, and neuroimaging</em> to understand how people perceive and interact with the world. My work sits at the intersection of cognitive neuroscience and human-computer interaction, with a focus on designing accessible, <em>community-centred</em> assistive technologies for people with disabilities.
+  </p>
+
+  <div style="margin-top:4rem;">
+    <p class="section-label">My Areas of Expertise</p>
+    <div class="expertise-grid reveal">
+      <div class="expertise-item">
+        <h3>Psychophysiological Methods</h3>
+        <p>EEG, eye-tracking, ECG/HRV, fMRI — end-to-end from data collection to analysis pipelines.</p>
+      </div>
+      <div class="expertise-item">
+        <h3>Cognitive Neuroscience</h3>
+        <p>Attention, working memory, covert spatial attention, microsaccade analysis, predictive processing.</p>
+      </div>
+      <div class="expertise-item">
+        <h3>Assistive & Gaze-Based Interfaces</h3>
+        <p>Designing and evaluating accessible technologies — gaze-based and brain-computer interfaces — for diverse and resource-limited contexts.</p>
+      </div>
+      <div class="expertise-item">
+        <h3>Data Analysis</h3>
+        <p>Python (MNE, pandas, scipy), MATLAB, SPM — custom analysis scripts and statistical modelling of neuroimaging and biosignal data.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:4rem;">
+    <p class="section-label">I Think I'm Good At</p>
+    <p class="good-at-text reveal">
+      Translating messy psychophysiological data into <strong>clean, meaningful insights</strong> — and connecting rigorous lab research to <strong>real-world accessibility impact.</strong>
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESEARCH -->
+<section id="research">
+  <p class="section-label">Research</p>
+  <div class="research-list">
+
+    <div class="research-item reveal">
+      <div>
+        <p class="research-role">Research Intern · ENIGMA Consortium</p>
+        <h3>Clinical-Scale Multimodal Neuroimaging</h3>
+        <p>Working at NIMHANS (Centre for Brain Mapping & MBIAL) under Dr. John P John on large-scale multimodal neuroimaging projects at an international clinical research level.</p>
+      </div>
+      <span class="research-date">Dec 2024 – Present</span>
+    </div>
+
+    <div class="research-item reveal">
+      <div>
+        <p class="research-role">Master's Thesis · Proactive Brain Lab, VU Amsterdam</p>
+        <h3>Covert Spatial Attention & Microsaccade Analysis</h3>
+        <p>Designed and executed experiments on the effects of task-relevant and task-irrelevant stimuli on covert attention. Built a full MATLAB pipeline for eye-tracking and microsaccade data, applied statistical modelling, and mentored junior students in EEG and eye-tracking methods.</p>
+      </div>
+      <span class="research-date">Oct 2024 – Jul 2025</span>
+    </div>
+
+    <div class="research-item reveal">
+      <div>
+        <p class="research-role">Research Assistant · Brain & Behaviour Lab, VU Amsterdam</p>
+        <h3>Physiological Sensor Reliability Study</h3>
+        <p>Compared autonomic nervous system measurements between a gold-standard VU-Ambulatory device and a consumer Garmin wearable across a 24-hour protocol. Managed participant recruitment, ECG/HRV collection, preprocessing, and Python-based analysis end-to-end.</p>
+      </div>
+      <span class="research-date">Feb – Jul 2024</span>
+    </div>
+
+    <div class="research-item reveal">
+      <div>
+        <p class="research-role">Course Projects · VU Amsterdam</p>
+        <h3>Statistical Learning, fMRI, and EEG Analyses</h3>
+        <p>Statistical Learning in Working Memory (dual pathway framework), fMRI preprocessing and GLM pipelines, EEG data collection and ERP analysis across multiple semesters.</p>
+      </div>
+      <span class="research-date">2023 – 2025</span>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS & TOOLS -->
+<section id="skills">
+  <p class="section-label">Skills & Tools</p>
+  <div class="skills-block reveal">
+    <div>
+      <h3>Programming & Analysis</h3>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">MNE</span>
+      <span class="skill-tag">NumPy</span>
+      <span class="skill-tag">pandas</span>
+      <span class="skill-tag">scipy</span>
+      <span class="skill-tag">matplotlib</span>
+      <span class="skill-tag">MATLAB</span>
+      <span class="skill-tag">SPM</span>
+      <span class="skill-tag">OpenSesame</span>
+      <span class="skill-tag">VU-DAMS</span>
+    </div>
+    <div>
+      <h3>Research Instrumentation</h3>
+      <span class="skill-tag">BioSemi EEG</span>
+      <span class="skill-tag">EyeLink 1000 Plus</span>
+      <span class="skill-tag">Philips 3T MRI</span>
+      <span class="skill-tag">ECG Recording</span>
+      <span class="skill-tag">HRV Biosignals</span>
+    </div>
+    <div>
+      <h3>Languages</h3>
+      <span class="skill-tag">Malayalam</span>
+      <span class="skill-tag">English (C2)</span>
+      <span class="skill-tag">Hindi (B1)</span>
+      <span class="skill-tag">French (B1)</span>
+      <span class="skill-tag">Arabic (B1)</span>
+    </div>
+    <div>
+      <h3>Certifications</h3>
+      <span class="skill-tag">EEG/ERP with MNE</span>
+      <span class="skill-tag">CBT Practitioner</span>
+      <span class="skill-tag">Psychological First Aid</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">Education</p>
+  <div>
+    <div class="edu-item reveal">
+      <p class="edu-school">Vrije Universiteit Amsterdam · Netherlands</p>
+      <p class="edu-degree">MSc Cognitive Neuropsychology <em>(Research Master)</em></p>
+      <p class="edu-detail">GPA 7.50/10 · EEG & Cognitive Electrophysiology, Memory Disorders, Advanced Data Analysis, Neuropsychiatry, Predictive Processing. Thesis under Dr. Freek van Ede & Dr. Anna van Harmelen at the Proactive Brain Lab.</p>
+    </div>
+    <div class="edu-item reveal">
+      <p class="edu-school">Calicut University · India</p>
+      <p class="edu-degree">BSc Psychology, <em>First Class with Distinction</em></p>
+      <p class="edu-detail">GPA 7.95/10 · Full scholarship for 4 semesters for academic excellence. National Finalist, Junior Behavioural Scientist Competition.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ADVOCACY -->
+<section id="advocacy">
+  <p class="section-label">Disability Advocacy & Community</p>
+  <div class="advocacy-grid reveal">
+    <div class="advocacy-card">
+      <p class="date">May – Aug 2023</p>
+      <h3>Management Trainee — SEDRA Foundation</h3>
+      <p>Facilitated inclusive programs and accessibility workshops for people with disabilities in partnership with Marriott, ALDAR, and Warner Bros. Supported employment pathways for young adults through job placement and workplace onboarding with Special Olympics.</p>
+    </div>
+    <div class="advocacy-card">
+      <p class="date">2019</p>
+      <h3>Volunteer Coordinator — Special Olympics World Games</h3>
+      <p>Organised and coordinated logistics supporting athletes, participants with disabilities, and their families across the World Games Abu Dhabi 2019.</p>
+    </div>
+    <div class="advocacy-card">
+      <p class="date">Jun – Aug 2024</p>
+      <h3>UX & Marketing Intern — Vini Mini</h3>
+      <p>Conducted user research and contributed to UI design improvements. Managed social media and SEO campaigns across a small startup, building end-to-end ownership across research, design, and marketing.</p>
+    </div>
+    <div class="advocacy-card">
+      <p class="date">Ongoing</p>
+      <h3>PhD Goals</h3>
+      <p>Seeking PhD opportunities in HCI or a related field — applying psychophysiological methods to design accessible, community-centred assistive technologies for people with disabilities across diverse and resource-limited contexts.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <p class="section-label">Achievements & Service</p>
+  <ul class="achievement-list reveal">
+    <li>Winner, Goodness Hunt Competition, NIMHANS (2024)</li>
+    <li>Presented paper at The 7th International Conference on Psychology, Kochi</li>
+    <li>National Finalist, Junior Behavioural Scientist Competition</li>
+    <li>Co-Chairperson, Association of Family of Academic Minds — partnered with Deloitte Career Team for student employment</li>
+    <li>Full academic scholarship for 4 semesters, Calicut University</li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" style="max-width:860px;">
+  <h2>Let's <em>connect.</em></h2>
+  <p>Currently seeking PhD opportunities in Human-Computer Interaction and related fields. Open to research conversations, collaborations, and opportunities.</p>
+  <div class="contact-links">
+    <a href="mailto:fathimashams02@gmail.com" class="contact-link primary">Email Me</a>
+    <a href="https://github.com/fathima190" target="_blank" class="contact-link">GitHub</a>
+    <a href="tel:+919747552544" class="contact-link">+91 97475 52544</a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Fathima Shamsuddin · Cognitive Neuropsychology & HCI
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
